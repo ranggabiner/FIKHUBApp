@@ -4,20 +4,45 @@
 //
 //  Created by Rangga Biner on 05/10/24.
 //
-
 import SwiftUI
+import SwiftData
 
 @main
 struct FIKHUBApp: App {
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
-
+    
     var body: some Scene {
         WindowGroup {
-            if hasSeenOnboarding {
-                MainTabView()
-            } else {
-                OnboardingView(hasSeenOnboarding: $hasSeenOnboarding)
-            }
+            ContentView()
         }
+        .modelContainer(for: Student.self)
+    }
+}
+
+struct ContentView: View {
+    @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
+    @Environment(\.modelContext) private var modelContext
+    @Query private var students: [Student]
+    
+    var body: some View {
+        if hasSeenOnboarding {
+            if let student = students.first {
+                MainTabView(student: student)
+            } else {
+                Text("No student data available")
+            }
+        } else {
+            OnboardingView(
+                onboardingInputViewModel: createOnboardingViewModel(),
+                hasSeenOnboarding: $hasSeenOnboarding
+            )
+        }
+    }
+    
+    private func createOnboardingViewModel() -> OnboardingInputViewModel {
+        let studentDataSource = StudentDataSourceImpl(context: modelContext)
+        let studentRepository = StudentRepositoryImpl(dataSource: studentDataSource)
+        let studentUseCase = StudentUseCaseImpl(repository: studentRepository)
+        return OnboardingInputViewModel(studentUseCases: studentUseCase)
     }
 }
