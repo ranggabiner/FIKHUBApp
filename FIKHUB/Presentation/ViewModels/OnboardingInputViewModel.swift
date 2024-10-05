@@ -26,5 +26,4 @@ class OnboardingInputViewModel: ObservableObject {
             errorMessage = "Error adding student: \(error.localizedDescription)"
         }
     }
-    
 }

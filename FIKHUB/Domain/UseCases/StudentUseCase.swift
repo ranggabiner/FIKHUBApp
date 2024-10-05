@@ -10,6 +10,7 @@ import Foundation
 protocol StudentUseCase {
     func addStudent(_ student: Student) async throws
     func getStudent(_ student: Student) async throws -> Student
+    func updateStudent(oldStudent: Student, newStudent: Student) async throws
 }
 
 class StudentUseCaseImpl: StudentUseCase {
@@ -25,5 +26,8 @@ class StudentUseCaseImpl: StudentUseCase {
     
     func getStudent(_ student: Student) async throws -> Student {
         return try await repository.getStudent(student)
+    }
+    func updateStudent(oldStudent: Student, newStudent: Student) async throws {
+        try await repository.updateStudent(oldStudent: oldStudent, newStudent: newStudent)
     }
 }

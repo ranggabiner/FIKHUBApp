@@ -27,7 +27,7 @@ struct ContentView: View {
     var body: some View {
         if hasSeenOnboarding {
             if let student = students.first {
-                MainTabView(student: student)
+                MainTabView(viewModel: createProfileViewModel(for: student), student: student)
             } else {
                 Text("No student data available")
             }
@@ -44,5 +44,12 @@ struct ContentView: View {
         let studentRepository = StudentRepositoryImpl(dataSource: studentDataSource)
         let studentUseCase = StudentUseCaseImpl(repository: studentRepository)
         return OnboardingInputViewModel(studentUseCases: studentUseCase)
+    }
+    
+    private func createProfileViewModel(for student: Student) -> EditProfileViewModel {
+        let studentDataSource = StudentDataSourceImpl(context: modelContext)
+        let studentRepository = StudentRepositoryImpl(dataSource: studentDataSource)
+        let studentUseCase = StudentUseCaseImpl(repository: studentRepository)
+        return EditProfileViewModel(studentUseCases: studentUseCase, student: student)
     }
 }

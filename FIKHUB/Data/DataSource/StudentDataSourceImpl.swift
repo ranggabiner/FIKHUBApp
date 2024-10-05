@@ -24,8 +24,12 @@ class StudentDataSourceImpl: StudentDataSource {
         try context.save()
     }
     
-    func update(_ student: Student) async throws {
+    func update(oldStudent: Student, newStudent: Student) async throws {
+        oldStudent.name = newStudent.name
+        oldStudent.major = newStudent.major
+        oldStudent.semester = newStudent.semester
         try context.save()
     }
+
 }
 

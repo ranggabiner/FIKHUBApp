@@ -22,7 +22,8 @@ class StudentRepositoryImpl: StudentRepository {
         try await dataSource.insert(student)
     }
     
-    func updateStudent(_ student: Student) async throws {
-        try await dataSource.update(student)
+    func updateStudent(oldStudent: Student, newStudent: Student) async throws {
+        try await dataSource.update(oldStudent: oldStudent, newStudent: newStudent)
     }
+
 }
