@@ -27,7 +27,7 @@ struct OnboardingPageView: View {
                 .font(.system(size: 19))
                 .multilineTextAlignment(.center)
         }
-        .padding(.horizontal, 19)
+        .safeAreaPadding(19)
     }
 }
 
