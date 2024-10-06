@@ -90,5 +90,12 @@ class CourseViewModel: ObservableObject {
     private func saveChatHistory() {
         chatHistoryManager.saveChatHistory(messages, for: course)
     }
+    
+    func clearChatHistory() {
+        messages.removeAll()
+        chatHistoryManager.deleteChatHistory(for: course)
+        addInitialBotMessage()
+    }
+
 
 }

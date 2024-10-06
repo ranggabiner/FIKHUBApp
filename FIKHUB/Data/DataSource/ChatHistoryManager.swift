@@ -42,4 +42,15 @@ class ChatHistoryManager {
             return []
         }
     }
+    
+    func deleteChatHistory(for courseId: String) {
+        let fileURL = documentsDirectory.appendingPathComponent("\(courseId)_chat_history.json")
+        
+        do {
+            try fileManager.removeItem(at: fileURL)
+            print("Chat history deleted successfully for course: \(courseId)")
+        } catch {
+            print("Error deleting chat history: \(error)")
+        }
+    }
 }
