@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct ScheduleView: View {
     @StateObject var viewModel: ScheduleViewModel
     @StateObject var profileViewModel: EditProfileViewModel
@@ -17,76 +19,117 @@ struct ScheduleView: View {
     @State private var selectedSchedule: Schedule?
     @State private var showingCourseMeeting = false
     @State private var sheetRefreshToggle = false
+    let currentStudent: Student
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(viewModel.sortedDays, id: \.self) { day in
-                    if let schedules = viewModel.schedulesByDay[day], !schedules.isEmpty {
-                        Section(header: Text(day).foregroundStyle(.primaryOrange)) {
-                            ForEach(schedules) { schedule in
-                                ScheduleRow(schedule: schedule)
-                                    .contentShape(Rectangle()) 
-                                    .onTapGesture {
-                                        selectedSchedule = schedule
-                                    }
-                                    .contextMenu {
-                                        Button("Edit") {
-                                            editingSchedule = schedule
-                                        }
-                                        Button("Hapus", role: .destructive) {
-                                            scheduleToDelete = schedule
-                                            showingDeleteAlert = true
-                                        }
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
+            ScheduleList(
+                viewModel: viewModel,
+                editingSchedule: $editingSchedule,
+                showingDeleteAlert: $showingDeleteAlert,
+                scheduleToDelete: $scheduleToDelete,
+                selectedSchedule: $selectedSchedule
+            )
             .navigationTitle("Jadwal")
-            .navigationBarItems(trailing: Button(action: {
-                isAddingSchedule = true
-            }) {
-                Image(systemName: "plus")
-            })
-            .onAppear {
-                Task {
-                    await viewModel.loadSchedules()
-                }
-            }
+            .navigationBarItems(trailing: addButton)
+            .onAppear(perform: loadSchedules)
             .sheet(isPresented: $isAddingSchedule) {
                 EditScheduleView(viewModel: viewModel, profileViewModel: profileViewModel, mode: .add)
             }
             .sheet(item: $editingSchedule) { schedule in
                 EditScheduleView(viewModel: viewModel, profileViewModel: profileViewModel, mode: .edit(schedule))
             }
-            .sheet(isPresented: $showingCourseMeeting, onDismiss: {
-                selectedSchedule = nil
-            }) {
-                if let schedule = selectedSchedule {
-                    CourseMeetingView(studentSubject: schedule.subject)
-                        .id(sheetRefreshToggle)
-                } else {
-                    Text("No schedule selected")
-                }
+            .sheet(isPresented: $showingCourseMeeting, onDismiss: { selectedSchedule = nil }) {
+                CourseMeetingSheet(
+                    selectedSchedule: selectedSchedule,
+                    currentStudent: currentStudent,  // Add this line
+                    sheetRefreshToggle: $sheetRefreshToggle
+                )
             }
-            .alert("Hapus Jadwal", isPresented: $showingDeleteAlert, presenting: scheduleToDelete) { schedule in
-                Button("Batal", role: .cancel) {}
-                Button("Hapus", role: .destructive) {
-                    Task {
-                        await viewModel.deleteSchedule(schedule)
-                    }
-                }
-            } message: { schedule in
-                Text("Apakah Anda yakin ingin menghapus jadwal ini?")
-            }
+            .alert("Hapus Jadwal", isPresented: $showingDeleteAlert, presenting: scheduleToDelete, actions: deleteAlert, message: deleteAlertMessage)
             .onChange(of: selectedSchedule) { newValue in
                 if newValue != nil {
                     showingCourseMeeting = true
                     sheetRefreshToggle.toggle()
                 }
             }
+        }
+    }
+
+    private var addButton: some View {
+        Button(action: { isAddingSchedule = true }) {
+            Image(systemName: "plus")
+        }
+    }
+
+    private func loadSchedules() {
+        Task {
+            await viewModel.loadSchedules()
+        }
+    }
+
+    private func deleteAlert(_ schedule: Schedule) -> some View {
+        Group {
+            Button("Batal", role: .cancel) {}
+            Button("Hapus", role: .destructive) {
+                Task {
+                    await viewModel.deleteSchedule(schedule)
+                }
+            }
+        }
+    }
+
+    private func deleteAlertMessage(_ schedule: Schedule) -> some View {
+        Text("Apakah Anda yakin ingin menghapus jadwal ini?")
+    }
+}
+
+struct ScheduleList: View {
+    @ObservedObject var viewModel: ScheduleViewModel
+    @Binding var editingSchedule: Schedule?
+    @Binding var showingDeleteAlert: Bool
+    @Binding var scheduleToDelete: Schedule?
+    @Binding var selectedSchedule: Schedule?
+
+    var body: some View {
+        List {
+            ForEach(viewModel.sortedDays, id: \.self) { day in
+                if let schedules = viewModel.schedulesByDay[day], !schedules.isEmpty {
+                    Section(header: Text(day).foregroundStyle(.primaryOrange)) {
+                        ForEach(schedules) { schedule in
+                            ScheduleRow(schedule: schedule)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    selectedSchedule = schedule
+                                }
+                                .contextMenu {
+                                    Button("Edit") {
+                                        editingSchedule = schedule
+                                    }
+                                    Button("Hapus", role: .destructive) {
+                                        scheduleToDelete = schedule
+                                        showingDeleteAlert = true
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+struct CourseMeetingSheet: View {
+    let selectedSchedule: Schedule?
+    let currentStudent: Student  
+    @Binding var sheetRefreshToggle: Bool
+
+    var body: some View {
+        if let schedule = selectedSchedule {
+            CourseMeetingView(studentSubject: schedule.subject, currentStudent: currentStudent)
+                .id(sheetRefreshToggle)
+        } else {
+            Text("No schedule selected")
         }
     }
 }

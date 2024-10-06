@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8F7D09872CB2A11A009496BE /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D09862CB2A11A009496BE /* OpenAI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		8FF8C1C42CB166560039C4F9 /* FIKHUB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FIKHUB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F7D09872CB2A11A009496BE /* OpenAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = FIKHUB;
 			packageProductDependencies = (
+				8F7D09862CB2A11A009496BE /* OpenAI */,
 			);
 			productName = FIKHUB;
 			productReference = 8FF8C1C42CB166560039C4F9 /* FIKHUB.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 8FF8C1BB2CB166560039C4F9;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8F7D09852CB2A11A009496BE /* XCRemoteSwiftPackageReference "OpenAI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8FF8C1C52CB166560039C4F9 /* Products */;
 			projectDirPath = "";
@@ -324,6 +333,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F7D09852CB2A11A009496BE /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F7D09862CB2A11A009496BE /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D09852CB2A11A009496BE /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8FF8C1BC2CB166560039C4F9 /* Project object */;
 }

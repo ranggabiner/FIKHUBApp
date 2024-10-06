@@ -11,5 +11,4 @@ protocol StudentRepository {
     func getStudent(_ student: Student) async throws -> Student
     func addStudent(_ student: Student) async throws
     func updateStudent(oldStudent: Student, newStudent: Student) async throws
-
 }
