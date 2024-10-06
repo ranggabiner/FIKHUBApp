@@ -65,6 +65,5 @@ struct OnboardingView: View {
                 }
             }
         }
-        .accentColor(.primaryOrange)
     }
 }

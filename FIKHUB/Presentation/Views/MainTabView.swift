@@ -14,7 +14,17 @@ struct MainTabView: View {
     
     var body: some View {
         TabView (selection: $selectedTab) {
+            ScheduleView()
+                .tabItem {
+                    Label("Schedule", systemImage: "calendar")
+                }
+                .tag(0)
+            
             EditProfileView(viewModel: viewModel)
+                .tabItem {
+                    Label("Profile", systemImage: "person.crop.circle.fill")
+                }
+                .tag(1)
         }
     }
 }

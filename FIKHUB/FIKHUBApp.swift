@@ -52,4 +52,5 @@ struct ContentView: View {
         let studentUseCase = StudentUseCaseImpl(repository: studentRepository)
         return EditProfileViewModel(studentUseCases: studentUseCase, student: student)
     }
+
 }

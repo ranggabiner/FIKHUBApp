@@ -12,9 +12,9 @@ import SwiftData
 final class Student {
     var name: String
     var major: String
-    var semester: Int
+    var semester: String
     
-    init(name: String, major: String, semester: Int) {
+    init(name: String, major: String, semester: String) {
         self.name = name
         self.major = major
         self.semester = semester

@@ -13,6 +13,11 @@ class OnboardingInputViewModel: ObservableObject {
     private let studentUseCases: StudentUseCase
     @Published var student: Student?
     @Published var errorMessage: String?
+    @Published var name: String = ""
+    @Published var selectedSemester: String = "Pilih Semester"
+    @Published var isSaving: Bool = false
+    @Published var selectedMajor: String = "Pilih Program Studi" 
+
     
     init(studentUseCases: StudentUseCase) {
         self.studentUseCases = studentUseCases

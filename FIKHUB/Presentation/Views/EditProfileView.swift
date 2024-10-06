@@ -7,84 +7,65 @@
 
 import SwiftUI
 
+
 struct EditProfileView: View {
-    @ObservedObject var viewModel: EditProfileViewModel
-    @State private var name: String
-    @State private var major: String
-    @State private var semester: Int
+    @StateObject var viewModel: EditProfileViewModel
     @Environment(\.presentationMode) var presentationMode
 
-    init(viewModel: EditProfileViewModel) {
-        self.viewModel = viewModel
-        _name = State(initialValue: viewModel.student?.name ?? "")
-        _major = State(initialValue: viewModel.student?.major ?? "")
-        _semester = State(initialValue: viewModel.student?.semester ?? 1)
-    }
-
     var body: some View {
-        Form {
-            Section(header: Text("Edit Student Information")) {
-                TextField("Name", text: $name)
-                TextField("Major", text: $major)
-                Stepper("Semester: \(semester)", value: $semester, in: 1...8)
-            }
-            
-            Section {
-                Button("Save Changes") {
-                    saveChanges()
+        NavigationStack {
+            ZStack {
+                Form {
+                    Section {
+                        HStack {
+                            Text("Nama")
+                                .frame(maxWidth: 100, alignment: .leading)
+                            TextFieldClear(placeholder: "Nama Anda", text: $viewModel.name, keyboardType: .default, onClear: {
+                                viewModel.name = ""
+                            })
+                        }
+                    }
+                    Section {
+                        NavigationLink(destination: MajorsView(selectedMajor: $viewModel.selectedMajor)) {
+                            Text(viewModel.selectedMajor)
+                                .foregroundStyle(.primaryOrange)
+                        }
+                        
+                        NavigationLink(destination: SemesterView(selectedSemester: $viewModel.selectedSemester)) {
+                            Text(viewModel.selectedSemester)
+                                .foregroundStyle(.primaryOrange)
+                        }
+                    }
                 }
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .padding()
-                .background(Color.blue)
-                .cornerRadius(10)
+                VStack {
+                    Spacer()
+                    ButtonFill(title: "Simpan Perubahan", action: {
+                        saveChanges()
+                    },
+                               backgroundColor: isFormValid ? .primaryOrange : .gray
+                    )
+                    .disabled(viewModel.isSaving)
+                    .disabled(!isFormValid)
+                    .padding()
+                }
             }
+            .navigationBarTitle("Edit Profile", displayMode: .large)
         }
-        .navigationTitle("Edit Profile")
-        .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Update Status"),
-                  message: Text(viewModel.alertMessage),
-                  dismissButton: .default(Text("OK")) {
-                      if viewModel.updateSuccessful {
-                          presentationMode.wrappedValue.dismiss()
-                      }
-                  })
+        .onAppear {
+            viewModel.loadCurrentProfile()
         }
     }
     
     private func saveChanges() {
-        guard let student = viewModel.student else { return }
-        let updatedStudent = Student(name: name, major: major, semester: semester)
         Task {
-            await viewModel.updateStudent(oldStudent: student, newStudent: updatedStudent)
+            await viewModel.updateProfile()
         }
     }
-}
-
-class EditProfileViewModel: ObservableObject {
-    private let studentUseCases: StudentUseCase
-    @Published var student: Student?
-    @Published var showAlert = false
-    @Published var alertMessage = ""
-    @Published var updateSuccessful = false
     
-    init(studentUseCases: StudentUseCase, student: Student) {
-        self.studentUseCases = studentUseCases
-        self.student = student
-    }
-    
-    @MainActor
-    func updateStudent(oldStudent: Student, newStudent: Student) async {
-        do {
-            try await studentUseCases.updateStudent(oldStudent: oldStudent, newStudent: newStudent)
-            self.student = newStudent
-            self.alertMessage = "Profile updated successfully!"
-            self.updateSuccessful = true
-            self.showAlert = true
-        } catch {
-            self.alertMessage = "Error updating profile: \(error.localizedDescription)"
-            self.updateSuccessful = false
-            self.showAlert = true
-        }
+    private var isFormValid: Bool {
+        !viewModel.name.isEmpty &&
+        !viewModel.selectedMajor.contains("Pilih Program Studi") &&
+        !viewModel.selectedSemester.contains("Pilih Semester") &&
+        !viewModel.isSaving
     }
 }
