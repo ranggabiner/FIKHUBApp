@@ -15,10 +15,9 @@ struct FIKHUBApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: Student.self)
+        .modelContainer(for: [Student.self, Schedule.self])
     }
 }
-
 struct ContentView: View {
     @AppStorage("hasSeenOnboarding") private var hasSeenOnboarding = false
     @Environment(\.modelContext) private var modelContext
@@ -27,7 +26,11 @@ struct ContentView: View {
     var body: some View {
         if hasSeenOnboarding {
             if let student = students.first {
-                MainTabView(viewModel: createProfileViewModel(for: student), student: student)
+                MainTabView(
+                    profileViewModel: createProfileViewModel(for: student),
+                    scheduleUseCase: createScheduleUseCase(),
+                    student: student
+                )
             } else {
                 Text("No student data available")
             }
@@ -53,4 +56,9 @@ struct ContentView: View {
         return EditProfileViewModel(studentUseCases: studentUseCase, student: student)
     }
 
+    private func createScheduleUseCase() -> ScheduleUseCase {
+        let scheduleDataSource = ScheduleDataSourceImpl(context: modelContext)
+        let scheduleRepository = ScheduleRepositoryImpl(dataSource: scheduleDataSource)
+        return ScheduleUseCaseImpl(repository: scheduleRepository)
+    }
 }
