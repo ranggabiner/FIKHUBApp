@@ -23,9 +23,10 @@ class ScheduleRepositoryImpl: ScheduleRepository {
     }
     
     func updateSchedule(_ schedule: Schedule) async throws {
+        print("Updating schedule in repository")
         try await dataSource.update(schedule)
     }
-    
+
     func deleteSchedule(_ schedule: Schedule) async throws {
         do {
             try await dataSource.delete(schedule)

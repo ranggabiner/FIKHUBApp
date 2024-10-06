@@ -23,9 +23,10 @@ class ScheduleUseCaseImpl: ScheduleUseCase {
     }
     
     func updateSchedule(_ schedule: Schedule) async throws {
+        print("Updating schedule in use case")
         try await repository.updateSchedule(schedule)
     }
-    
+
     func deleteSchedule(_ schedule: Schedule) async throws {
         try await repository.deleteSchedule(schedule)
     }
