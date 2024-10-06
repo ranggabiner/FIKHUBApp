@@ -9,12 +9,14 @@ import SwiftUI
 
 struct EditScheduleView: View {
     @ObservedObject var viewModel: ScheduleViewModel
+    @ObservedObject var profileViewModel: EditProfileViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State var subject = ""
-    @State var location = ""
-    @State var day = ""
-    @State var startTime: Date
-    @State var endTime: Date
+    @State private var subject = ""
+    @State private var location = ""
+    @State private var day = ""
+    @State private var startTime: Date
+    @State private var endTime: Date
+    @State private var isSelectingCourse = false
 
     enum Mode: Equatable {
         case add
@@ -34,8 +36,9 @@ struct EditScheduleView: View {
     
     let mode: Mode
     
-    init(viewModel: ScheduleViewModel, mode: Mode) {
+    init(viewModel: ScheduleViewModel, profileViewModel: EditProfileViewModel, mode: Mode) {
         self.viewModel = viewModel
+        self.profileViewModel = profileViewModel
         self.mode = mode
         
         switch mode {
@@ -57,7 +60,16 @@ struct EditScheduleView: View {
     var body: some View {
         NavigationView {
             Form {
-                TextField("Subject", text: $subject)
+                Button(action: {
+                    isSelectingCourse = true
+                }) {
+                    HStack {
+                        Text("Mata Kuliah")
+                        Spacer()
+                        Text(subject.isEmpty ? "Pilih Mata Kuliah" : subject)
+                            .foregroundColor(subject.isEmpty ? .gray : .primary)
+                    }
+                }
                 TextField("Location", text: $location)
                 TextField("Day", text: $day)
                 DatePicker("Start Time", selection: $startTime, displayedComponents: .hourAndMinute)
@@ -69,8 +81,13 @@ struct EditScheduleView: View {
             }, trailing: Button("Save") {
                 saveSchedule()
             })
+            .sheet(isPresented: $isSelectingCourse) {
+                SubjectView(selectedCourse: $subject, studentMajor: profileViewModel.currentStudent.major)
+            }
         }
     }
+
+
     
     private func saveSchedule() {
         Task {

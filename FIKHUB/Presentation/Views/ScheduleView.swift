@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ScheduleView: View {
     @StateObject var viewModel: ScheduleViewModel
+    @StateObject var profileViewModel: EditProfileViewModel
     @State private var isAddingSchedule = false
     @State private var editingSchedule: Schedule?
 
@@ -34,10 +35,10 @@ struct ScheduleView: View {
                 }
             }
             .sheet(isPresented: $isAddingSchedule) {
-                EditScheduleView(viewModel: viewModel, mode: .add)
+                EditScheduleView(viewModel: viewModel, profileViewModel: profileViewModel, mode: .add)
             }
             .sheet(item: $editingSchedule) { schedule in
-                EditScheduleView(viewModel: viewModel, mode: .edit(schedule))
+                EditScheduleView(viewModel: viewModel, profileViewModel: profileViewModel, mode: .edit(schedule))
             }
         }
     }

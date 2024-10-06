@@ -15,7 +15,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            ScheduleView(viewModel: scheduleViewModel)
+            ScheduleView(viewModel: scheduleViewModel, profileViewModel: profileViewModel)
                 .tabItem {
                     Label("Schedule", systemImage: "calendar")
                 }
@@ -30,6 +30,6 @@ struct MainTabView: View {
     }
     
     private var scheduleViewModel: ScheduleViewModel {
-        ScheduleViewModel(schedules: [], scheduleUseCase: scheduleUseCase)
+        ScheduleViewModel(schedules: [], scheduleUseCase: scheduleUseCase, currentStudent: student)
     }
 }

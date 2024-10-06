@@ -9,13 +9,15 @@ import Foundation
 
 class ScheduleViewModel: ObservableObject {
     @Published var schedules: [Schedule] = []
+    @Published var currentStudent: Student
     private let scheduleUseCase: ScheduleUseCase
     
-    init(schedules: [Schedule], scheduleUseCase: ScheduleUseCase) {
+    init(schedules: [Schedule], scheduleUseCase: ScheduleUseCase, currentStudent: Student) {
         self.schedules = schedules
         self.scheduleUseCase = scheduleUseCase
+        self.currentStudent = currentStudent
     }
-    
+
     func loadSchedules() async {
         do {
             schedules = try await scheduleUseCase.getAllSchedules()
