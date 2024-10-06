@@ -1,5 +1,5 @@
 //
-//  OnboardingInputView.swift
+//  EditProfileView.swift
 //  FIKHUB
 //
 //  Created by Rangga Biner on 05/10/24.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct OnboardingInputView: View {
-    @StateObject var viewModel: OnboardingInputViewModel
-    @Binding var hasSeenOnboarding: Bool
-    
+
+struct EditProfileView: View {
+    @StateObject var viewModel: EditProfileViewModel
+    @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         NavigationStack {
@@ -39,8 +39,8 @@ struct OnboardingInputView: View {
                 }
                 VStack {
                     Spacer()
-                    ButtonFill(title: "Lanjutkan", action: {
-                        saveAndContinue()
+                    ButtonFill(title: "Simpan Perubahan", action: {
+                        saveChanges()
                     },
                                backgroundColor: isFormValid ? .primaryOrange : .gray
                     )
@@ -49,16 +49,16 @@ struct OnboardingInputView: View {
                     .padding()
                 }
             }
-            .navigationBarTitle("Profile", displayMode: .large)
+            .navigationBarTitle("Edit Profile", displayMode: .large)
+        }
+        .onAppear {
+            viewModel.loadCurrentProfile()
         }
     }
     
-    private func saveAndContinue() {
+    private func saveChanges() {
         Task {
-            let newStudent = Student(name: viewModel.name, major: viewModel.selectedMajor, semester: viewModel.selectedSemester)
-            await viewModel.addStudent(newStudent)
-            hasSeenOnboarding = true
-            print(newStudent.name, newStudent.major, newStudent.semester)
+            await viewModel.updateProfile()
         }
     }
     

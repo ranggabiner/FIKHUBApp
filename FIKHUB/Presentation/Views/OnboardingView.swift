@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    @ObservedObject var onboardingInputViewModel: OnboardingInputViewModel
     @State private var currentPage = 0
     let totalPages = 4
     @Binding var hasSeenOnboarding: Bool
@@ -49,7 +50,7 @@ struct OnboardingView: View {
                     Spacer()
                     
                     if currentPage == totalPages - 1 {
-                        NavigationLink(destination: OnboardingInputView(hasSeenOnboarding: $hasSeenOnboarding)) {
+                        NavigationLink(destination: OnboardingInputView(viewModel: onboardingInputViewModel, hasSeenOnboarding: $hasSeenOnboarding)) {
                             Text("Lanjutkan")
                                 .foregroundColor(.white)
                                 .frame(width: geometry.size.width * 0.8)
@@ -64,10 +65,5 @@ struct OnboardingView: View {
                 }
             }
         }
-        .accentColor(.primaryOrange)
     }
-}
-
-#Preview {
-    OnboardingView(hasSeenOnboarding: .constant(false))
 }
