@@ -14,6 +14,9 @@ struct ScheduleView: View {
     @State private var editingSchedule: Schedule?
     @State private var showingDeleteAlert = false
     @State private var scheduleToDelete: Schedule?
+    @State private var selectedSchedule: Schedule?
+    @State private var showingCourseMeeting = false
+    @State private var sheetRefreshToggle = false
 
     var body: some View {
         NavigationView {
@@ -23,6 +26,10 @@ struct ScheduleView: View {
                         Section(header: Text(day).foregroundStyle(.primaryOrange)) {
                             ForEach(schedules) { schedule in
                                 ScheduleRow(schedule: schedule)
+                                    .contentShape(Rectangle()) 
+                                    .onTapGesture {
+                                        selectedSchedule = schedule
+                                    }
                                     .contextMenu {
                                         Button("Edit") {
                                             editingSchedule = schedule
@@ -54,6 +61,16 @@ struct ScheduleView: View {
             .sheet(item: $editingSchedule) { schedule in
                 EditScheduleView(viewModel: viewModel, profileViewModel: profileViewModel, mode: .edit(schedule))
             }
+            .sheet(isPresented: $showingCourseMeeting, onDismiss: {
+                selectedSchedule = nil
+            }) {
+                if let schedule = selectedSchedule {
+                    CourseMeetingView(studentSubject: schedule.subject)
+                        .id(sheetRefreshToggle)
+                } else {
+                    Text("No schedule selected")
+                }
+            }
             .alert("Hapus Jadwal", isPresented: $showingDeleteAlert, presenting: scheduleToDelete) { schedule in
                 Button("Batal", role: .cancel) {}
                 Button("Hapus", role: .destructive) {
@@ -63,6 +80,12 @@ struct ScheduleView: View {
                 }
             } message: { schedule in
                 Text("Apakah Anda yakin ingin menghapus jadwal ini?")
+            }
+            .onChange(of: selectedSchedule) { newValue in
+                if newValue != nil {
+                    showingCourseMeeting = true
+                    sheetRefreshToggle.toggle()
+                }
             }
         }
     }
