@@ -17,7 +17,9 @@ struct EditScheduleView: View {
     @State private var startTime: Date
     @State private var endTime: Date
     @State private var isSelectingCourse = false
-
+    @State private var isSelectingLocation = false
+    private let days = ["Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"]
+    
     enum Mode: Equatable {
         case add
         case edit(Schedule)
@@ -45,47 +47,71 @@ struct EditScheduleView: View {
         case .add:
             _subject = State(initialValue: "")
             _location = State(initialValue: "")
-            _day = State(initialValue: "")
+            _day = State(initialValue: "Senin")
             _startTime = State(initialValue: Date())
             _endTime = State(initialValue: Date())
         case .edit(let schedule):
             _subject = State(initialValue: schedule.subject)
             _location = State(initialValue: schedule.location)
-            _day = State(initialValue: schedule.day)
+            _day = State(initialValue: schedule.day.isEmpty ? "Senin" : schedule.day)
             _startTime = State(initialValue: schedule.startTime)
             _endTime = State(initialValue: schedule.endTime)
         }
     }
     
+
     var body: some View {
         NavigationView {
             Form {
-                Button(action: {
-                    isSelectingCourse = true
-                }) {
-                    HStack {
-                        Text("Mata Kuliah")
-                        Spacer()
-                        Text(subject.isEmpty ? "Pilih Mata Kuliah" : subject)
-                            .foregroundColor(subject.isEmpty ? .gray : .primary)
+                Section {
+                    Button(action: {
+                        isSelectingCourse = true
+                    }) {
+                        HStack {
+                            Text(subject.isEmpty ? "Pilih Mata Kuliah" : subject)
+                                .foregroundColor(.primaryOrange)
+                        }
+                    }
+
+                }
+                Section {
+                    Picker("Hari", selection: $day) {
+                        ForEach(days, id: \.self) { day in
+                            Text(day).tag(day)
+                        }
                     }
                 }
-                TextField("Location", text: $location)
-                TextField("Day", text: $day)
-                DatePicker("Start Time", selection: $startTime, displayedComponents: .hourAndMinute)
-                DatePicker("End Time", selection: $endTime, displayedComponents: .hourAndMinute)
+                Section {
+                    DatePicker("Mulai", selection: $startTime, displayedComponents: .hourAndMinute)
+                    DatePicker("Selesai", selection: $endTime, displayedComponents: .hourAndMinute)
+
+                }
+                Section {
+                    Button(action: {
+                        isSelectingLocation = true
+                    }) {
+                        HStack {
+                            Text(location.isEmpty ? "Pilih Lokasi" : location)
+                                .foregroundColor(.primaryOrange)
+                        }
+                    }
+                }
             }
-            .navigationTitle(mode == .add ? "Tambah Jadwal" : "Edit Jadwal")
-            .navigationBarItems(leading: Button("Cancel") {
+            .navigationBarTitle(mode == .add ? "Tambah Jadwal" : "Edit Jadwal", displayMode: .inline)
+            .navigationBarItems(leading: Button("Batal") {
                 presentationMode.wrappedValue.dismiss()
-            }, trailing: Button("Save") {
+            }, trailing: Button("Simpan") {
                 saveSchedule()
             })
             .sheet(isPresented: $isSelectingCourse) {
                 SubjectView(selectedCourse: $subject, studentMajor: profileViewModel.currentStudent.major)
             }
+            .sheet(isPresented: $isSelectingLocation) {
+                RoomLocationView(selectedLocation: $location)
+            }
         }
     }
+
 
 
     

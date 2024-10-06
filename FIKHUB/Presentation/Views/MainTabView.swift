@@ -30,6 +30,6 @@ struct MainTabView: View {
     }
     
     private var scheduleViewModel: ScheduleViewModel {
-        ScheduleViewModel(schedules: [], scheduleUseCase: scheduleUseCase, currentStudent: student)
+        ScheduleViewModel(scheduleUseCase: scheduleUseCase, currentStudent: student)
     }
 }

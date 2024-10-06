@@ -47,7 +47,7 @@ struct RoomLocationView: View {
                     }
                 }
             }
-            .navigationBarTitle("Ruang", displayMode: .large)
+            .navigationBarTitle("Ruang", displayMode: .inline)
             .searchable(text: $searchText, prompt: "Cari")
         }
     }
