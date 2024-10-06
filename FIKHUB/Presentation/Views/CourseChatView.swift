@@ -45,10 +45,7 @@ struct CourseChatView: View {
             .padding()
         }
         .navigationTitle(course)
-        .onAppear {
-            viewModel.addInitialBotMessage()
-        }
-        .background(Color(.systemGroupedBackground)) // Menggunakan warna default form list
+        .background(Color(.systemGroupedBackground))
     }
     
     private func sendMessage() {

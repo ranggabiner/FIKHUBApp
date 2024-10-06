@@ -15,11 +15,20 @@ class CourseViewModel: ObservableObject {
     private let course: String
     private let detail: String
     private let currentStudent: Student
-    
+    private let chatHistoryManager = ChatHistoryManager()
+
     init(course: String, detail: String, currentStudent: Student) {
         self.course = course
         self.detail = detail
         self.currentStudent = currentStudent
+        loadChatHistory()
+    }
+
+    private func loadChatHistory() {
+        messages = chatHistoryManager.loadChatHistory(for: course)
+        if messages.isEmpty {
+            addInitialBotMessage()
+        }
     }
     
     func sendMessage(_ userMessage: String) {
@@ -28,8 +37,10 @@ class CourseViewModel: ObservableObject {
         
         isTyping = true
         getAIReply(userMessage: userMessage)
+        
+        saveChatHistory()
     }
-    
+
     private func getAIReply(userMessage: String) {
         let systemPrompt = """
         Anda adalah chatbot edukasi yang menjelaskan materi \(course) secara ringkas dan bertahap kepada \(currentStudent.name). Berikan penjelasan singkat (maksimal 2-3 kalimat) untuk setiap topik. Setelah setiap penjelasan, tanyakan apakah \(currentStudent.name) sudah paham atau perlu penjelasan lebih lanjut. Jika paham, lanjutkan ke topik berikutnya. Jika tidak, berikan penjelasan tambahan yang singkat atau contoh sederhana. Berikan nada chat terkesan ekspresif dan asik.
@@ -53,13 +64,16 @@ class CourseViewModel: ObservableObject {
                           let message = choice.message.content?.string else { return }
                     let botMessage = ChatMessage(content: message, isUser: false)
                     self?.messages.append(botMessage)
+                    self?.saveChatHistory()
                 case .failure(let failure):
                     print("AI Reply Error: \(failure)")
                     let errorMessage = ChatMessage(content: "Sorry, I couldn't process your request. Please try again.", isUser: false)
                     self?.messages.append(errorMessage)
+                    self?.saveChatHistory()
                 }
             }
         }
+
     }
     
     func addInitialBotMessage() {
@@ -72,4 +86,9 @@ class CourseViewModel: ObservableObject {
         """
         messages.append(ChatMessage(content: initialMessage, isUser: false))
     }
+    
+    private func saveChatHistory() {
+        chatHistoryManager.saveChatHistory(messages, for: course)
+    }
+
 }

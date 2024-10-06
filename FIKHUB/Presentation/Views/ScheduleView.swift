@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct ScheduleView: View {
     @StateObject var viewModel: ScheduleViewModel
     @StateObject var profileViewModel: EditProfileViewModel
@@ -121,7 +119,7 @@ struct ScheduleList: View {
 
 struct CourseMeetingSheet: View {
     let selectedSchedule: Schedule?
-    let currentStudent: Student  
+    let currentStudent: Student
     @Binding var sheetRefreshToggle: Bool
 
     var body: some View {
