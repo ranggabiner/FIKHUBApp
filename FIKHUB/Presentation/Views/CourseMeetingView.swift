@@ -29,6 +29,7 @@ struct CourseMeetingView: View {
     let studentSubject: String
     @State private var searchText = ""
     @State private var selectedCourse: (title: String, detail: String)?
+    let currentStudent: Student
 
     var filteredCourses: [(String, String)] {
         let majorCourses = courseMeeting[studentSubject] ?? [:]
@@ -44,7 +45,7 @@ struct CourseMeetingView: View {
         NavigationView {
             List {
                 ForEach(filteredCourses, id: \.0) { course, detail in
-                    NavigationLink(destination: CourseDetailView(course: course, detail: detail)) {
+                    NavigationLink(destination: CourseChatView(course: course, detail: detail, currentStudent: currentStudent)) {
                         Text(course)
                     }
                 }
