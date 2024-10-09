@@ -17,8 +17,8 @@ struct ChatBubble: View {
             }
             Text(message.content)
                 .padding(10)
-                .background(message.isUser ? Color.orange : Color(.white))
-                .foregroundColor(message.isUser ? .black : .black)
+                .background(message.isUser ? .primaryOrange : Color(.white))
+                .foregroundColor(message.isUser ? .white : .black)
                 .cornerRadius(10)
             if !message.isUser {
                 Spacer()
