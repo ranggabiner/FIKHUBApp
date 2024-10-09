@@ -149,7 +149,7 @@ struct ScheduleRow: View {
                 Image(systemName: "mappin.and.ellipse")
                 Text(schedule.location)
                 Spacer()
-                Text(formatTime(schedule.startTime))
+                Text(formatTime(schedule.endTime))
             }
             .foregroundStyle(.secondary)
             .font(.system(size: 15))
