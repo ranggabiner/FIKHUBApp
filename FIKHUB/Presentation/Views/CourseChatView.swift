@@ -32,18 +32,28 @@ struct CourseChatView: View {
     }
     
     private var chatScrollView: some View {
-        ScrollView {
-            ScrollViewReader { proxy in
-                LazyVStack(spacing: 10) {
+        ScrollViewReader { proxy in
+            ScrollView {
+                VStack {
                     ForEach(viewModel.messages) { message in
                         ChatBubble(message: message)
+                            .id(message.id)
                     }
-                }
-                .onChange(of: viewModel.messages) { _ in
-                    scrollToBottom(proxy: proxy)
                 }
             }
             .padding()
+            .onChange(of: viewModel.messages) { _ in
+                if let lastMessage = viewModel.messages.last {
+                    withAnimation {
+                        proxy.scrollTo(lastMessage.id, anchor: .bottom)
+                    }
+                }
+            }
+            .onAppear {
+                if let lastMessage = viewModel.messages.last {
+                    proxy.scrollTo(lastMessage.id, anchor: .bottom)
+                }
+            }
         }
     }
     
@@ -91,10 +101,5 @@ struct CourseChatView: View {
         viewModel.sendMessage(userMessage)
         newMessage = ""
     }
-    
-    private func scrollToBottom(proxy: ScrollViewProxy) {
-        withAnimation {
-            proxy.scrollTo(viewModel.messages.last?.id, anchor: .bottom)
-        }
-    }
 }
+
