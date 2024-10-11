@@ -378,22 +378,6 @@ struct CourseMeetingView: View {
             "Manajemen Proyek Teknologi Informasi": "Mempelajari prinsip-prinsip manajemen proyek dalam pengembangan dan penerapan SIM, termasuk perencanaan, pengendalian, dan evaluasi proyek teknologi informasi.",
             "Tren Terkini dalam Sistem Informasi Manajemen": "Mengenal tren terbaru dalam SIM, seperti penggunaan big data, AI (artificial intelligence), dan IoT (internet of things) dalam meningkatkan efektivitas sistem informasi dalam organisasi."
         ],
-        "Data Mining dan Data Warehouse": [
-            "Pengenalan Data Mining": "Mengenal konsep dasar data mining, tujuan, dan prosesnya, serta bagaimana teknik data mining dapat digunakan untuk menggali pola dan informasi tersembunyi dalam dataset besar.",
-            "Proses Data Mining: CRISP-DM": "Mempelajari metodologi CRISP-DM (Cross-Industry Standard Process for Data Mining) sebagai standar untuk proyek data mining, termasuk tahap-tahap seperti pemahaman data, persiapan data, pemodelan, dan evaluasi.",
-            "Teknik-Tehnik Dasar dalam Data Mining": "Mengenal berbagai teknik data mining, seperti klasifikasi, regresi, asosiasi, dan clustering, serta aplikasinya dalam analisis data.",
-            "Pengenalan Data Warehouse": "Memahami konsep dasar data warehouse, tujuan, dan fungsinya dalam mendukung keputusan bisnis, serta perbedaan antara OLTP (Online Transaction Processing) dan OLAP (Online Analytical Processing).",
-            "Arsitektur Data Warehouse": "Mempelajari arsitektur data warehouse yang mencakup komponen utama seperti data staging, data marts, dan layer presentasi, serta proses ETL (Extract, Transform, Load).",
-            "Model Data Warehouse: Star Schema dan Snowflake Schema": "Mengenal dua model utama dalam data warehouse: star schema dan snowflake schema, serta bagaimana keduanya digunakan untuk menyusun dan mengorganisir data dalam warehouse.",
-            "Pengolahan dan Persiapan Data untuk Data Mining": "Mempelajari teknik-teknik dalam pengolahan dan pembersihan data (data preprocessing), termasuk handling missing values, normalisasi data, dan transformasi data untuk persiapan analisis data mining.",
-            "Asosiasi dan Analisis Pola dalam Data Mining": "Menganalisis pola asosiasi dengan menggunakan algoritma seperti Apriori untuk menemukan hubungan antar item dalam dataset, serta penerapannya dalam berbagai bidang seperti retail.",
-            "Klasifikasi dan Regresi dalam Data Mining": "Mempelajari teknik klasifikasi dan regresi untuk memprediksi hasil berdasarkan data yang ada, serta penggunaan algoritma seperti decision tree, random forest, dan linear regression.",
-            "Clustering dalam Data Mining": "Mempelajari teknik clustering untuk mengelompokkan data ke dalam cluster yang memiliki karakteristik serupa, serta algoritma yang digunakan seperti K-means, DBSCAN, dan hierarchical clustering.",
-            "Evaluasi Model Data Mining": "Mempelajari teknik evaluasi model data mining untuk menilai kinerja model yang dibangun, menggunakan metrik seperti akurasi, presisi, recall, dan AUC (Area Under Curve).",
-            "Data Mining dan Business Intelligence (BI)": "Menghubungkan data mining dengan business intelligence untuk menghasilkan laporan dan dashboard yang bermanfaat dalam pengambilan keputusan bisnis berbasis data.",
-            "Big Data dan Data Warehouse Modern": "Memahami tantangan yang dihadapi oleh data warehouse dalam menghadapi volume data yang besar dan kompleks, serta penerapan big data technologies seperti Hadoop dan Spark dalam data warehouse.",
-            "Integrasi Data Mining dan Data Warehouse": "Mempelajari bagaimana data mining dapat diterapkan dalam lingkungan data warehouse untuk menggali wawasan yang lebih dalam dan mendukung keputusan berbasis data di dalam organisasi."
-        ],
         "Manajemen Kualitas Bisnis": [
             "Pengenalan Manajemen Kualitas Bisnis": "Mengenal konsep dasar manajemen kualitas bisnis, pentingnya kualitas dalam operasional perusahaan, serta pengaruhnya terhadap kepuasan pelanggan dan keberhasilan bisnis.",
             "Definisi dan Prinsip Kualitas": "Mempelajari definisi kualitas menurut berbagai perspektif, seperti dari segi produk, proses, dan layanan, serta prinsip-prinsip dasar dalam manajemen kualitas seperti kepuasan pelanggan dan perbaikan berkelanjutan.",
