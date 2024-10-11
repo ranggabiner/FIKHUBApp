@@ -491,7 +491,7 @@ struct CourseMeetingView: View {
             "Pengelolaan Data Terdistribusi: Replikasi dan Sharding": "Praktikum mengenai konsep pengelolaan data terdistribusi, termasuk replikasi (menyebarkan salinan data) dan sharding (membagi data antar server).",
             "Penggunaan NoSQL untuk Basis Data Non-Relasional": "Mengenal dan mempraktikkan penggunaan sistem basis data NoSQL seperti MongoDB, serta memahami kapan dan mengapa menggunakan basis data non-relasional."
         ],
-        "Analisis dan Perancangan Sistem Informasi": [
+        "Analisis Dan Perancangan Sistem Informasi": [
             "Pengenalan Analisis dan Perancangan Sistem Informasi": "Mengenal konsep dasar analisis dan perancangan sistem informasi, serta pentingnya memahami kebutuhan pengguna dan tujuan bisnis dalam merancang sistem yang efektif.",
             "Metodologi Pengembangan Sistem: Waterfall, Agile, dan Iterative": "Mempelajari berbagai metodologi pengembangan sistem, seperti Waterfall, Agile, dan Iterative, serta cara memilih pendekatan yang tepat berdasarkan proyek dan kebutuhan.",
             "Analisis Kebutuhan Pengguna": "Mengajarkan teknik untuk mengumpulkan dan menganalisis kebutuhan pengguna menggunakan wawancara, survei, dan observasi, untuk memahami masalah dan tujuan yang ingin dicapai dalam sistem.",
@@ -507,7 +507,7 @@ struct CourseMeetingView: View {
             "Pemeliharaan dan Evaluasi Sistem Informasi": "Mempelajari cara melakukan pemeliharaan sistem untuk memastikan sistem tetap berjalan dengan baik, serta teknik evaluasi untuk menilai efektivitas dan kinerja sistem.",
             "Perencanaan Jangka Panjang dan Skalabilitas Sistem Informasi": "Mengenal perencanaan jangka panjang untuk sistem informasi dan pentingnya merancang sistem yang dapat diskalakan untuk mengakomodasi pertumbuhan dan perubahan kebutuhan di masa depan."
         ],
-        "Praktikum Analisis dan Perancangan Sistem Informasi": [
+        "Praktikum Analisis Dan Perancangan Sistem": [
             "Pengenalan Alat dan Teknik Analisis Sistem": "Pengenalan perangkat lunak yang digunakan dalam analisis dan perancangan sistem, seperti Microsoft Visio, Lucidchart, dan alat lainnya untuk menggambar diagram alir dan ERD.",
             "Analisis Kebutuhan Pengguna: Wawancara dan Survei": "Praktikum dalam melakukan wawancara dan survei dengan pengguna untuk mengumpulkan data kebutuhan sistem yang diperlukan, serta cara menganalisis hasilnya.",
             "Pembuatan Diagram Konteks dan DFD (Diagram Aliran Data)": "Praktikum mengenai pembuatan diagram konteks dan DFD untuk menggambarkan aliran data dalam sistem, serta cara mengidentifikasi entitas eksternal dan proses internal.",
@@ -587,7 +587,7 @@ struct CourseMeetingView: View {
             "Backup dan Pemulihan Sistem: Menggunakan `rsync` dan `tar`": "Praktikum mengonfigurasi dan menjalankan backup data menggunakan perintah seperti `rsync`, `tar`, serta memulihkan data yang telah dibackup.",
             "Pengelolaan Layanan dan Daemon: Menggunakan `systemd` dan `service`": "Mempelajari cara mengelola layanan (daemon) di Linux menggunakan `systemctl` dan `service`, serta memonitor status layanan yang berjalan."
         ],
-        "Interaksi Manusia dan Komputer": [
+        "Interaksi Manusia Dan Komputer": [
             "Pengenalan Interaksi Manusia dan Komputer (HCI)": "Mempelajari dasar-dasar interaksi manusia dan komputer, serta tujuan dan ruang lingkup HCI dalam pengembangan perangkat lunak.",
             "Desain Antarmuka Pengguna (User Interface Design)": "Mengenal prinsip-prinsip dasar dalam desain antarmuka pengguna, termasuk konsistensi, feedback, dan efisiensi dalam merancang antarmuka yang ramah pengguna.",
             "Model Interaksi Pengguna dan Komputer": "Memahami berbagai model interaksi pengguna dengan komputer, seperti model interaksi berbasis teks, grafis, dan suara.",
@@ -672,7 +672,7 @@ struct CourseMeetingView: View {
             "Strategi Exit untuk Start-up Teknologi": "Mempelajari berbagai strategi exit bagi pengusaha start-up teknologi, seperti akuisisi, merger, atau IPO (Initial Public Offering), serta tahapan yang diperlukan untuk mencapai tujuan tersebut.",
             "Case Study Start-up Teknologi Sukses": "Analisis studi kasus dari berbagai start-up teknologi sukses untuk memahami faktor-faktor yang membuat mereka berhasil dan belajar dari pengalaman mereka."
         ],
-        "Desain Arsitektur Enterprise": [
+        "Desain Arsitektur enterprise": [
             "Pengenalan Arsitektur Enterprise": "Memahami konsep dasar arsitektur enterprise (EA), peranannya dalam perusahaan besar, serta tujuan utama seperti integrasi sistem, efisiensi, dan optimasi proses bisnis.",
             "Model Arsitektur Enterprise: TOGAF dan Zachman Framework": "Mempelajari dua kerangka kerja utama dalam arsitektur enterprise: TOGAF (The Open Group Architecture Framework) dan Zachman Framework, serta bagaimana mereka digunakan untuk merancang dan mengelola EA.",
             "Pendekatan Terstruktur dalam Desain Arsitektur Enterprise": "Mempelajari cara mengembangkan desain arsitektur enterprise secara terstruktur, dengan memperhatikan kebutuhan bisnis, teknologi, dan proses operasional yang ada.",
@@ -774,7 +774,7 @@ struct CourseMeetingView: View {
             "Pengukuran Kinerja Bisnis": "Mempelajari cara mengukur kinerja bisnis melalui berbagai indikator kinerja utama (KPI) dan bagaimana memanfaatkan data untuk meningkatkan kinerja.",
             "Studi Kasus dalam Analisis Bisnis": "Melakukan analisis bisnis dengan menggunakan studi kasus nyata, memecahkan masalah bisnis, dan memberikan solusi yang praktis berdasarkan data yang ada."
         ],
-        "Keamanan Sistem dan Aplikasi": [
+        "Keamanan Sistem Dan Aplikasi": [
             "Pengenalan Keamanan Sistem dan Aplikasi": "Mempelajari dasar-dasar keamanan dalam sistem dan aplikasi, serta pentingnya melindungi data dan sistem dari ancaman yang ada.",
             "Ancaman dan Kerentanannya": "Mengenal berbagai ancaman terhadap sistem dan aplikasi, termasuk malware, hacking, dan serangan DDoS, serta kerentanannya yang dapat dimanfaatkan oleh pihak yang tidak bertanggung jawab.",
             "Keamanan Jaringan dan Pengamanan Data": "Memahami bagaimana menjaga keamanan jaringan komputer dan data yang ada di dalamnya, termasuk penggunaan firewall, enkripsi, dan VPN.",
@@ -807,7 +807,7 @@ struct CourseMeetingView: View {
             "Etika dan Privasi dalam Data Science": "Membahas tantangan etika dalam data science, termasuk masalah privasi data, bias algoritma, dan tanggung jawab sosial dalam penggunaan data.",
             "Studi Kasus Data Science": "Analisis studi kasus nyata penerapan data science dalam berbagai industri, seperti kesehatan, keuangan, dan retail, serta solusi berbasis data yang dihasilkan."
         ],
-        "Praktikum Keamanan Sistem dan Aplikasi": [
+        "Praktikum Keamanan Sistem Dan Aplikasi": [
             "Pengenalan Alat Keamanan Sistem": "Praktikum mengenal berbagai alat yang digunakan untuk mengamankan sistem dan aplikasi, seperti firewall, antivirus, dan intrusion detection systems (IDS).",
             "Pengamanan Jaringan dengan Firewall": "Mempelajari cara mengonfigurasi dan mengelola firewall untuk melindungi jaringan dari ancaman eksternal dan internal.",
             "Penerapan Enkripsi untuk Keamanan Data": "Praktikum implementasi teknik enkripsi untuk mengamankan data baik dalam penyimpanan maupun transmisi menggunakan algoritma seperti AES dan RSA.",

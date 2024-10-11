@@ -56,16 +56,16 @@ struct SubjectView: View {
             "Jaringan Komputer",
             "Pengantar Teknologi Informasi",
             "Praktikum Jaringan Komputer",
-            "Analisis bisnis",
+            "Analisis Bisnis",
             "Keamanan Sistem Dan Aplikasi",
             "Pengantar Data Science",
             "Praktikum Keamanan Sistem Dan Aplikasi",
             "Manajemen Proyek Sistem Informasi",
-            "Manajemen data dan Informasi",
-            "Praktikum Manajemen data dan Informasi",
+            "Manajemen Data dan Informasi",
+            "Praktikum Manajemen Data dan Informasi",
             "Big Data",
-            "Perancangan ui/ux",
-            "Praktikum perancangan ui/ux"
+            "Perancangan UI/UX",
+            "Praktikum Perancangan UI/UX"
           ],
         "S1 Sistem Informasi": [
             "Pendidikan Agama",
