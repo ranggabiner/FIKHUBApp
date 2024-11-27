@@ -11,7 +11,7 @@ class CourseViewModel: ObservableObject {
     @Published var messages: [ChatMessage] = []
     @Published var isTyping: Bool = false
     
-    private let openAI = OpenAI(apiToken: "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")
+    private let openAI = OpenAI(apiToken: "api-key")
     private let course: String
     private let detail: String
     private let currentStudent: Student
